@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بحث بواسطة الـ ID</title>
+</head>
+<body>
+    <h1>بحث بواسطة الـ ID</h1>
+    <input type="text" id="searchInput" placeholder="أدخل الـ ID هنا">
+    <button onclick="search()">SERSH FOR STUDENT</button>
+
+    <div id="searchResult"></div>
+
+    <script>
+        function search() {
+    var id = document.getElementById("searchInput").value;
+     var url = "https://script.google.com/macros/s/AKfycbzNgYnQQJIqnFs60dR27yH6CuxZ21j5nTPcwf1k9a3Yn4d_xKFqJbNa_KTZTTbRcsIB/exec?id=" + id;
+    //   var url = "https://script.google.com/macros/s/AKfycbzNgYnQQJIqnFs60dR27yH6CuxZ21j5nTPcwf1k9a3Yn4d_xKFqJbNa_KTZTTbRcsIB/exec" + id;
+
+    // باقي الشيفرة...
+
+
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById("searchResult");
+                resultDiv.innerHTML = "";
+                if (data.error) {
+                    resultDiv.innerHTML = "حدث خطأ: " + data.error;
+                } else {
+                    resultDiv.innerHTML = "<p>الاسم: " + data.name + "</p>" +
+                                          "<p>الايميل: " + data.mail + "</p>" +
+                                          "<p>السن: " + data.phone + "</p>" +
+                                          "<p>الكيمياء: " + data.kim + "</p>" +
+                                          "<p>الفيزياء: " + data.fiz + "</p>" +
+                                          "<p>الدراسات: " + data.dras + "</p>";
+                }
+            })
+            .catch(error => {
+                var resultDiv = document.getElementById("searchResult");
+                resultDiv.innerHTML = "حدث خطأ: " + error;
+            });
+        }
+    </script>
+</body>
+</html>
